@@ -125,3 +125,108 @@ class Rapper implements Musician{
 const kanye = new Rapper('Yeezy', 8, 100, 'yes');
 console.log(kanye);
 console.log(kanye.performedSong('Follow God'));
+
+
+///////////////////////////////////////
+// Static members 
+
+class Users {
+    static count: number = 0;
+
+    static getCount(): number {
+        return Users.count;
+    }
+
+    public id: number;
+
+    constructor(public name: string){
+        this.name = name;
+        this.id = ++Users.count;
+    }
+}
+
+
+let Paul = new Users('Paul Walker');
+let Dwanye = new Users('Dwayne Johnson');
+const Chris = new Users('Chris Prat');
+
+console.log(Dwanye.id);
+console.log(Dwanye.name);
+console.log(Users.getCount());
+
+//Getter and Setter
+
+class Todos {
+    private todoState: string[];
+
+    constructor(){
+        this.todoState = []
+    }
+
+    public get getTodos(): string[] {
+        return this.todoState;
+    }
+
+    public set setTodos(value: string[]) {
+        if(Array.isArray(value) && value.every(el => typeof el === 'string')) {
+            this.todoState = value;
+            return
+        }else{
+            throw new Error('Parameter is not an array of strings');
+        }
+    }
+}
+
+
+const webProject = new Todos();
+webProject.setTodos = ['create folder', 'initialize npm', 'download dependencies'];
+console.log(webProject.getTodos);
+webProject.setTodos = [...webProject.getTodos, "edit package.json", "create an entry point"];
+console.log(webProject.getTodos);
+
+
+/**
+ * create a class of  Genre which has a class member that stores music genres as array. 
+ * the initial state of the genre array has to be an empty array
+ * create a getter and setter. 
+ * your setter must include a type guard to check if parameter is an array and also an array of string 
+ */
+
+class Genre {
+    private genres: string[];
+
+    constructor() {
+      this.genres = [];
+    }
+  
+    get getGenres(): string[] {
+      return this.genres;
+    }
+  
+    set setGenres(newGenres: string[]) {
+      if (Array.isArray(newGenres) && newGenres.every(el => typeof el === 'string')) {
+        this.genres = newGenres;
+        return;
+      } else {
+        throw new Error('Genres must be an array.');
+      }
+    }
+  }
+  
+  const musicGenre = new Genre();
+  
+  console.log(musicGenre.getGenres);
+  
+  musicGenre.setGenres = ['Rock', 'Pop', 'Jazz'];
+  console.log(musicGenre.getGenres);
+  
+  musicGenre.setGenres = [...musicGenre.getGenres ,'Hip Hop', 'R&B'];
+  console.log(musicGenre.getGenres);
+  
+ // musicGenre.genres = 'Country';
+  
+  
+  
+  
+  
+  
